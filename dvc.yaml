@@ -15,3 +15,17 @@ stages:
     outs:
       - data/processed/train_processed.csv
       - data/processed/test_processed.csv
+  train_model:
+    cmd: python src/model_training.py
+    deps:
+      - data/processed/train_processed.csv
+      - src/model_training.py
+    outs:
+      - models/random_forest_model.pkl
+
+  evaluate:
+    cmd: python src/model_evaluation.py
+    deps:
+      - data/processed/test_processed.csv
+      - models/random_forest_model.pkl
+      - src/model_evaluation.py
